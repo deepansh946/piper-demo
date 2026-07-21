@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3001;
 app.use(express.json());
 
 function addNumbers(a, b) {
-  return a - b;
+  return a + b;
 }
 
 function divideNumbers(a, b) {
@@ -25,6 +25,7 @@ async function fetchData() {
     const response = await fetch(
       "https://jsonplaceholder.typicode.com/posts/1",
     );
+    const data = await response.json();
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -54,9 +55,13 @@ app.get("/divide", (req, res) => {
   }
 });
 
+app.get("/health", (_req, res) => {
+  res.status(200).json({ status: "ok" });
+});
+
 const numbers = [1, 2, 3, 4];
 for (let i = 0; i < numbers.length; i++) {
-  console.log(numbers);
+  console.log(numbers[i]);
 }
 
 if (require.main === module) {
